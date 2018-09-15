@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<h1>Produto cadastrado com sucesso!</h1>
+	<h1>Produto ${produto.titulo} cadastrado com sucesso!</h1>
 
 </body>
 </html>
