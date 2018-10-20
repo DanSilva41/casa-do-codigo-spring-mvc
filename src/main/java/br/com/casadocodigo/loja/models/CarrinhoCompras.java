@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @Component
 @Scope(value = WebApplicationContext.SCOPE_SESSION)
+//, proxyMode = ScopedProxyMode.TARGET_CLASS
 public class CarrinhoCompras implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,6 +50,12 @@ public class CarrinhoCompras implements Serializable {
 
 	public Collection<CarrinhoItem> getItens() {
 		return itens.keySet();
+	}
+
+	public void remover(Integer produtoId, TipoPreco tipoPreco) {
+		Produto produto = new Produto();
+		produto.setId(produtoId);
+		itens.remove(new CarrinhoItem(produto, tipoPreco));
 	}
 
 }

@@ -13,6 +13,7 @@
 
 	<h1>Lista de Produtos</h1>
 	<div>${sucesso }</div>
+	<div>${pagamentoFinalizado }</div>
 	<table>
 		<thead>
 			<tr>
