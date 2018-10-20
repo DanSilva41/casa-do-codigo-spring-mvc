@@ -1,5 +1,6 @@
 package br.com.casadocodigo.loja.models;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -11,6 +12,10 @@ import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+/**
+ * 
+ * @author Danilo Silva
+ */
 @Entity
 public class Produto {
 
@@ -108,6 +113,10 @@ public class Produto {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	public BigDecimal precoPara(TipoPreco tipoPreco) {
+		return precos.stream().filter(preco -> preco.getTipo().equals(tipoPreco)).findFirst().get().getValor();
 	}
 
 }
