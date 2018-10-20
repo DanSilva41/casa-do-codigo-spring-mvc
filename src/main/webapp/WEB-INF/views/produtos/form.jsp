@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,17 +10,21 @@
 	Casa do Código</title>
 </head>
 <body>
-
-	<form action="/casadocodigo/produtos" method="post">
+	<form:form action="/casadocodigo/produtos" method="POST" commandName="produto">
 		<div>
-			<label>Título</label> <input type="text" id="titulo" name="titulo" />
+			<label>Título</label> 
+			<input type="text" id="titulo" name="titulo" />
+			<form:errors path="titulo" />
 		</div>
 		<div>
 			<label>Descrição</label>
 			<textarea id="descricao" name="descricao" rows="10" cols="20"></textarea>
+			<form:errors path="descricao" />
 		</div>
 		<div>
-			<label>Páginas</label> <input type="text" id="paginas" name="paginas" />
+			<label>Páginas</label> 
+			<input type="text" id="paginas" name="paginas" />
+			<form:errors path="paginas" />
 		</div>
 		<c:forEach items="${tipos }" var="tipoPreco" varStatus="status">
 			<div>
