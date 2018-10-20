@@ -22,7 +22,7 @@ public class Produto {
 	private String descricao;
 	private int paginas;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat
 	private Calendar dataLancamento;
 
 	@ElementCollection
