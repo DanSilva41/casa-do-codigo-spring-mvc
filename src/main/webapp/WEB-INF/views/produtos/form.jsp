@@ -11,32 +11,34 @@
 	Casa do Código</title>
 </head>
 <body>
-	<form:form action="${s:mvcUrl('PC#salvar').build() }" method="POST" commandName="produto">
+	<form:form action="${s:mvcUrl('PC#salvar').build() }" method="POST"
+		commandName="produto">
 		<div>
-			<label>Título</label> 
-			<input type="text" id="titulo" name="titulo" />
+			<label>Título</label>
+			<form:input path="titulo" id="titulo" />
 			<form:errors path="titulo" />
 		</div>
 		<div>
 			<label>Descrição</label>
-			<textarea id="descricao" name="descricao" rows="10" cols="20"></textarea>
+			<form:textarea path="descricao" id="descricao" rows="10" cols="20" />
 			<form:errors path="descricao" />
 		</div>
 		<div>
-			<label>Páginas</label> 
-			<input type="text" id="paginas" name="paginas" />
+			<label>Páginas</label>
+			<form:input path="paginas" id="paginas" />
 			<form:errors path="paginas" />
 		</div>
 		<div>
-			<label>Data de Lançamento</label> 
-			<input type="text" id="dataLancamento" name="dataLancamento" />
+			<label>Data de Lançamento</label>
+			<form:input path="dataLancamento" id="dataLancamento" />
 			<form:errors path="dataLancamento" />
 		</div>
 		<c:forEach items="${tipos }" var="tipoPreco" varStatus="status">
 			<div>
-				<label>${tipoPreco}</label> <input type="text"
-					name="precos[${status.index}].valor" /> <input type="hidden"
-					name="precos[${status.index}].tipo" value="${tipoPreco}" />
+				<label>${tipoPreco}</label>
+				<form:input path="precos[${status.index}].valor" />
+				<form:hidden path="precos[${status.index}].tipo"
+					value="${tipoPreco}" />
 			</div>
 		</c:forEach>
 		<button type="submit">Cadastrar</button>
