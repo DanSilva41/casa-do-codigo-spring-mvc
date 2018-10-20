@@ -12,7 +12,7 @@
 </head>
 <body>
 	<form:form action="${s:mvcUrl('PC#salvar').build() }" method="POST"
-		commandName="produto">
+		commandName="produto" enctype="multipart/form-data">
 		<div>
 			<label>Título</label>
 			<form:input path="titulo" id="titulo" />
@@ -41,6 +41,10 @@
 					value="${tipoPreco}" />
 			</div>
 		</c:forEach>
+		<div>
+			<label>Sumário</label>
+			<input type="file" id="sumario" name="sumario" />
+		</div>
 		<button type="submit">Cadastrar</button>
 	</form:form>
 
