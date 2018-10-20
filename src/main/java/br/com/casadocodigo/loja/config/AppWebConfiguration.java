@@ -10,20 +10,26 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
+import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import br.com.casadocodigo.loja.controllers.HomeController;
 import br.com.casadocodigo.loja.daos.ProdutoDAO;
 import br.com.casadocodigo.loja.infra.FileSaver;
+import br.com.casadocodigo.loja.models.CarrinhoCompras;
 
 /**
  *
  * @author Danilo Silva
  */
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { HomeController.class, ProdutoDAO.class, FileSaver.class })
-public class AppWebConfiguration {
+@ComponentScan(basePackageClasses = { HomeController.class, ProdutoDAO.class, FileSaver.class, CarrinhoCompras.class })
+public class AppWebConfiguration extends WebMvcConfigurationSupport {
 
 	/**
 	 * Configuração para informar onde estarão as páginas do sistema
@@ -35,6 +41,8 @@ public class AppWebConfiguration {
 		resolver.setPrefix("/WEB-INF/views/");
 		resolver.setSuffix(".jsp");
 
+//		resolver.setExposeContextBeansAsAttributes(true); // todos os controllers disponiveis nos arquivos .jsp
+		resolver.setExposedContextBeanNames("carrinhoCompras");
 		return resolver;
 	}
 
@@ -55,6 +63,7 @@ public class AppWebConfiguration {
 	 * Configuração para setar formatação de datas para toda a aplicação
 	 * @return
 	 */
+	@Override
 	@Bean
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
@@ -68,5 +77,23 @@ public class AppWebConfiguration {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
+	}
+
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();
+	}
+
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
+	@Override
+	@Bean
+	public HandlerMapping resourceHandlerMapping() {
+		AbstractHandlerMapping handlerMapping = (AbstractHandlerMapping) super.resourceHandlerMapping();
+		handlerMapping.setOrder(-1);
+		return handlerMapping;
 	}
 }
